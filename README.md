@@ -1,6 +1,13 @@
 # Xdecrypt
+
 Xshell Xftp password decrypt
 
+## Setup
+```
+pip3 install -r requirements.txt
+```
+
+## Usage
 ```
 usage: Xdecrypt.py [-h] [-s SID] [-p PASSWORD]
 
