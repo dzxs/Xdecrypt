@@ -1,4 +1,5 @@
 import os
+import sys
 import argparse
 import base64
 import configparser
@@ -17,15 +18,32 @@ def decrypt_string(a1, a2):
     else:
         return None
 
+VERSION_6_CONFIG_PATH = os.path.join(os.environ["USERPROFILE"], r"Documents\NetSarang Computer\6")
+VERSION_7_CONFIG_PATH = os.path.join(os.environ["USERPROFILE"], r"Documents\NetSarang Computer\7")
 
+config_path = ""
 parser = argparse.ArgumentParser(description="xsh, xfp password decrypt")
 parser.add_argument("-s", "--sid", default="", type=str, help="`username`+`sid`, user `whoami /user` in command.")
 parser.add_argument("-p", "--password", default="", type=str, help="the password in sessions or path of sessions")
 args = parser.parse_args()
-if not args.sid:
-    args.sid = GetUserName() + ConvertSidToStringSid(LookupAccountName(GetComputerName(), GetUserName())[0])
+
 if not args.password:
-    args.password = os.path.join(os.environ["USERPROFILE"], r"Documents\NetSarang Computer\6")
+    if os.path.exists(VERSION_6_CONFIG_PATH):
+        config_path = VERSION_6_CONFIG_PATH
+    elif os.path.exists(VERSION_7_CONFIG_PATH):
+        config_path = VERSION_7_CONFIG_PATH
+    else:
+        print("Error: can't found valid session path")
+        sys.exit(0)    
+    args.password = config_path
+
+if not args.sid:
+    # method from https://github.com/JDArmy/SharpXDecrypt
+    if config_path == VERSION_7_CONFIG_PATH:
+        tmp = GetUserName()[::-1] + ConvertSidToStringSid(LookupAccountName(GetComputerName(), GetUserName())[0])
+        args.sid = tmp[::-1]
+    else:
+        args.sid = GetUserName() + ConvertSidToStringSid(LookupAccountName(GetComputerName(), GetUserName())[0])
 
 if not os.path.isdir(args.password):
     r = decrypt_string(args.sid, args.password)
