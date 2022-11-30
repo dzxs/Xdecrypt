@@ -69,8 +69,6 @@ for root, dirs, files in os.walk(args.password):
                     host = "{}:{}".format(cfg["Connection"]["Host"], cfg["Connection"]["Port"])
                     username = cfg["Connection"]["UserName"]
                     password = decrypt_string(args.sid, cfg["Connection"]["Password"])
-                print(args.sid)
-                print(cfg["CONNECTION:AUTHENTICATION"]["Password"])
                 print(
                     f"{filepath:=^100}\nHost:     {host}\nUsername: {username}\nPassword: {password}")
             except Exception as e:
