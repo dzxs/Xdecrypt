@@ -44,7 +44,7 @@ Host:     192.168.1.2:22
 Username: root
 Password: test
 
-$ python3 Xdecrypt.py -s username+sid -p "D:\somewhere\NetSarang Computer"
+$ python3 Xdecrypt.py -u username -s sid -p "D:\somewhere\NetSarang Computer"
 =============D:\somewhere\NetSarang Computer\6\Xftp\Sessions\192.168.1.2.xfp=============
 Host:     192.168.1.2:22
 Username: root
