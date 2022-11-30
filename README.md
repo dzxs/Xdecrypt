@@ -10,17 +10,16 @@ pip3 install -r requirements.txt
 ## Usage
 ```
 usage: Xdecrypt.py [-h] [-u USERNMAE] [-s SID] [-p PASSWORD]
-
 xsh, xfp password decrypt
-
+```
 optional arguments:
   -h, --help            show this help message and exit
   -u USER, --user USER  `username`,`whoami` in command.
   -s SID, --sid SID     `sid`,`whoami /user` in command.
   -p PASSWORD, --password PASSWORD
                         the password in sessions or path of sessions
-```
-
+  -v VERSION, --version VERSION
+                        xshell's version
 ```
 $ whoami /user
 用户信息
