@@ -9,7 +9,7 @@ pip3 install -r requirements.txt
 
 ## Usage
 ```
-usage: Xdecrypt.py [-h] [-s SID] [-p PASSWORD]
+usage: Xdecrypt.py [-h] [-u USERNMAE] [-s SID] [-p PASSWORD]
 
 xsh, xfp password decrypt
 
