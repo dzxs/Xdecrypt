@@ -9,17 +9,17 @@ pip3 install -r requirements.txt
 
 ## Usage
 ```
-usage: Xdecrypt.py [-h] [-s SID] [-p PASSWORD]
-
+usage: Xdecrypt.py [-h] [-u USERNMAE] [-s SID] [-p PASSWORD]
 xsh, xfp password decrypt
-
+```
 optional arguments:
   -h, --help            show this help message and exit
-  -s SID, --sid SID     `username`+`sid`, user `whoami /user` in command.
+  -u USER, --user USER  `username`,`whoami` in command.
+  -s SID, --sid SID     `sid`,`whoami /user` in command.
   -p PASSWORD, --password PASSWORD
                         the password in sessions or path of sessions
-```
-
+  -v VERSION, --version VERSION
+                        xshell's version
 ```
 $ whoami /user
 用户信息
@@ -43,7 +43,7 @@ Host:     192.168.1.2:22
 Username: root
 Password: test
 
-$ python3 Xdecrypt.py -s username+sid -p "D:\somewhere\NetSarang Computer"
+$ python3 Xdecrypt.py -u username -s sid -p "D:\somewhere\NetSarang Computer"
 =============D:\somewhere\NetSarang Computer\6\Xftp\Sessions\192.168.1.2.xfp=============
 Host:     192.168.1.2:22
 Username: root
@@ -57,6 +57,6 @@ Host:     192.168.1.2:22
 Username: root
 Password: test
 
-$ python Xdecrypt.py -s username+sid -p password
+$ python Xdecrypt.py -u username -s sid -p password
 test
 ```

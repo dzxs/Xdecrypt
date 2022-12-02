@@ -23,8 +23,10 @@ VERSION_7_CONFIG_PATH = os.path.join(os.environ["USERPROFILE"], r"Documents\NetS
 
 config_path = ""
 parser = argparse.ArgumentParser(description="xsh, xfp password decrypt")
-parser.add_argument("-s", "--sid", default="", type=str, help="`username`+`sid`, user `whoami /user` in command.")
+parser.add_argument("-u", "--user", default="", type=str, help="`username`,`whoami` in command.")
+parser.add_argument("-s", "--sid", default="", type=str, help="`sid`,`whoami /user` in command.")
 parser.add_argument("-p", "--password", default="", type=str, help="the password in sessions or path of sessions")
+parser.add_argument("-v","--version",default="",type=str,help="xshell's version")
 args = parser.parse_args()
 
 if not args.password:
@@ -44,12 +46,13 @@ if not args.sid:
         args.sid = tmp[::-1]
     else:
         args.sid = GetUserName() + ConvertSidToStringSid(LookupAccountName(GetComputerName(), GetUserName())[0])
-
 if not os.path.isdir(args.password):
-    r = decrypt_string(args.sid, args.password)
+    if args.version == "7":
+        r = decrypt_string(args.sid[::-1] + args.user, args.password)
+    else:
+        r = decrypt_string(args.user+args.sid, args.password)
     if r:
         print(r)
-
 for root, dirs, files in os.walk(args.password):
     for f in files:
         if f.endswith(".xsh") or f.endswith(".xfp"):
@@ -59,7 +62,6 @@ for root, dirs, files in os.walk(args.password):
                 cfg.read(filepath)
             except UnicodeDecodeError:
                 cfg.read(filepath, encoding="utf-16")
-
             try:
                 if f.endswith(".xsh"):
                     host = "{}:{}".format(cfg["CONNECTION"]["Host"], cfg["CONNECTION"]["Port"])
